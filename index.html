@@ -3,7 +3,8 @@ layout: default
 ---
 <div class="row">
     <div class="select-container" style="text-align: center;">
-        <br/>
+        <h2>Claimed ballot concentration per candidate</h2>
+        <br>
         <label for="subject-select">Candidate</label>
         <select id="subject-select" class="form-control" style="margin: 0 auto; width: 50%; text-align-last:center;">
         </select>
@@ -13,6 +14,14 @@ layout: default
 
     </div>
 </div>
+
+<br>
+<div class="row" align="center">
+    <a href="http://opendatakosovo.org" target="_blank">
+        <img src="http://opendatakosovo.org/wp-content/uploads/2014/08/odk-header-logo.png"/>
+    </a>
+</div>
+
 <script>
     var political_parties = ["XHAVIT DRENORI", "RRAHIM ELSHANI", "PARTIA DEMOKRATIKE E KOSOVËS", "NISMA PËR KOSOVËN", "NAIM BAZAJ", "LIDHJA DEMOKRATIKE E KOSOVËS", "FJALA", "ALEANCA KOSOVA E RE", "Invalid Ballots"];
     var data = {
@@ -458,7 +467,7 @@ layout: default
     function initMap(map, selected_subject) {
         buildHeatMapLayerData(selected_subject);
         L.tileLayer('https://{s}.tiles.mapbox.com/v3/georges.jjc3k7b1/{z}/{x}/{y}.png', {
-            attribution: 'Data Source: <a href="http://opendatakosovo.org">Open Data Kosovo</a>',
+            attribution: 'Data Source: <a target="_blank" href="http://rezultatet.kqz-ks.org/Results.aspx?RaceID=1&UnitID=0301E%2F01R&IsPS=1&Turnout=0&LangID=2">rezultatet.kqz-ks.org</a>',
             maxZoom: 18
         }).addTo(map);
 
