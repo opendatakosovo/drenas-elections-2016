@@ -1,0 +1,497 @@
+---
+layout: default
+---
+<div class="row">
+    <div class="select-container" style="text-align: center;">
+        <br/>
+        <label for="subject-select">Political Subject</label>
+        <select id="subject-select" class="form-control" style="margin: 0 auto; width: 50%; text-align-last:center;">
+        </select>
+    </div>
+    <hr class="hr" style="width: 90%;">
+    <div class="map-container" id="map">
+
+    </div>
+</div>
+<script>
+    var political_parties = ["XHAVIT DRENORI", "RRAHIM ELSHANI", "PARTIA DEMOKRATIKE E KOSOVËS", "NISMA PËR KOSOVËN", "NAIM BAZAJ", "LIDHJA DEMOKRATIKE E KOSOVËS", "FJALA", "ALEANCA KOSOVA E RE"];
+    var data = {
+        "0318E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 231,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 21,
+            "invalid_ballots": 13,
+            "NISMA PËR KOSOVËN": 46,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1052,
+            "Longitude": 20.826644,
+            "ALEANCA KOSOVA E RE": 14,
+            "XHAVIT DRENORI": 67,
+            "FJALA": 5,
+            "Latitude": 42.688729,
+            "valid_ballots": 384
+        },
+        "0308E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 340,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 73,
+            "invalid_ballots": 38,
+            "NISMA PËR KOSOVËN": 292,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1981,
+            "Longitude": 20.824783,
+            "ALEANCA KOSOVA E RE": 49,
+            "XHAVIT DRENORI": 73,
+            "FJALA": 8,
+            "Latitude": 42.629866,
+            "valid_ballots": 835
+        },
+        "0321E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 171,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 12,
+            "invalid_ballots": 6,
+            "NISMA PËR KOSOVËN": 169,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1078,
+            "Longitude": 20.881956,
+            "ALEANCA KOSOVA E RE": 37,
+            "XHAVIT DRENORI": 55,
+            "FJALA": 11,
+            "Latitude": 42.55595,
+            "valid_ballots": 454
+        },
+        "0323E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 235,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 11,
+            "invalid_ballots": 14,
+            "NISMA PËR KOSOVËN": 202,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1055,
+            "Longitude": 20.772562,
+            "ALEANCA KOSOVA E RE": 17,
+            "XHAVIT DRENORI": 23,
+            "FJALA": 5,
+            "Latitude": 42.605146,
+            "valid_ballots": 494
+        },
+        "0310E": {
+            "NAIM BAZAJ": 2,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 464,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 48,
+            "invalid_ballots": 35,
+            "NISMA PËR KOSOVËN": 219,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 2606,
+            "Longitude": 20.892551,
+            "ALEANCA KOSOVA E RE": 116,
+            "XHAVIT DRENORI": 65,
+            "FJALA": 16,
+            "Latitude": 42.554175,
+            "valid_ballots": 931
+        },
+        "0302E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 620,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 53,
+            "invalid_ballots": 57,
+            "NISMA PËR KOSOVËN": 513,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 3917,
+            "Longitude": 20.90203,
+            "ALEANCA KOSOVA E RE": 137,
+            "XHAVIT DRENORI": 180,
+            "FJALA": 28,
+            "Latitude": 42.576885,
+            "valid_ballots": 1531
+        },
+        "0325E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 216,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 20,
+            "invalid_ballots": 16,
+            "NISMA PËR KOSOVËN": 79,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1167,
+            "Longitude": 20.85278,
+            "ALEANCA KOSOVA E RE": 9,
+            "XHAVIT DRENORI": 89,
+            "FJALA": 35,
+            "Latitude": 42.68111,
+            "valid_ballots": 449
+        },
+        "0312E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 149,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 9,
+            "invalid_ballots": 2,
+            "NISMA PËR KOSOVËN": 14,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 723,
+            "Longitude": 20.899583,
+            "ALEANCA KOSOVA E RE": 4,
+            "XHAVIT DRENORI": 33,
+            "FJALA": 10,
+            "Latitude": 42.69641,
+            "valid_ballots": 219
+        },
+        "0327E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 289,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 24,
+            "invalid_ballots": 23,
+            "NISMA PËR KOSOVËN": 80,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1389,
+            "Longitude": 20.870741,
+            "ALEANCA KOSOVA E RE": 43,
+            "XHAVIT DRENORI": 151,
+            "FJALA": 15,
+            "Latitude": 42.645821,
+            "valid_ballots": 602
+        },
+        "0314E": {
+            "NAIM BAZAJ": 2,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 309,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 46,
+            "invalid_ballots": 25,
+            "NISMA PËR KOSOVËN": 265,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 1667,
+            "Longitude": 20.82026,
+            "ALEANCA KOSOVA E RE": 57,
+            "XHAVIT DRENORI": 38,
+            "FJALA": 10,
+            "Latitude": 42.583987,
+            "valid_ballots": 728
+        },
+        "0306E": {
+            "NAIM BAZAJ": 5,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 623,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 63,
+            "invalid_ballots": 75,
+            "NISMA PËR KOSOVËN": 265,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 3389,
+            "Longitude": 20.843414,
+            "ALEANCA KOSOVA E RE": 69,
+            "XHAVIT DRENORI": 128,
+            "FJALA": 34,
+            "Latitude": 42.666265,
+            "valid_ballots": 1185
+        },
+        "0316E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 480,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 149,
+            "invalid_ballots": 18,
+            "NISMA PËR KOSOVËN": 28,
+            "RRAHIM ELSHANI": 2,
+            "registered_voters": 1611,
+            "Longitude": 20.913615,
+            "ALEANCA KOSOVA E RE": 5,
+            "XHAVIT DRENORI": 48,
+            "FJALA": 82,
+            "Latitude": 42.673213,
+            "valid_ballots": 794
+        },
+        "0304E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 314,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 23,
+            "invalid_ballots": 17,
+            "NISMA PËR KOSOVËN": 80,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1863,
+            "Longitude": 20.919685,
+            "ALEANCA KOSOVA E RE": 15,
+            "XHAVIT DRENORI": 304,
+            "FJALA": 17,
+            "Latitude": 42.649459,
+            "valid_ballots": 752
+        },
+        "0319E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 337,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 47,
+            "invalid_ballots": 22,
+            "NISMA PËR KOSOVËN": 241,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1807,
+            "Longitude": 20.892412,
+            "ALEANCA KOSOVA E RE": 103,
+            "XHAVIT DRENORI": 124,
+            "FJALA": 24,
+            "Latitude": 42.59933,
+            "valid_ballots": 876
+        },
+        "0309E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 285,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 6,
+            "invalid_ballots": 23,
+            "NISMA PËR KOSOVËN": 126,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1882,
+            "Longitude": 20.850703,
+            "ALEANCA KOSOVA E RE": 61,
+            "XHAVIT DRENORI": 28,
+            "FJALA": 21,
+            "Latitude": 42.607045,
+            "valid_ballots": 527
+        },
+        "0320E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 247,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 32,
+            "invalid_ballots": 34,
+            "NISMA PËR KOSOVËN": 225,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1675,
+            "Longitude": 20.881645,
+            "ALEANCA KOSOVA E RE": 18,
+            "XHAVIT DRENORI": 82,
+            "FJALA": 8,
+            "Latitude": 42.62895,
+            "valid_ballots": 613
+        },
+        "0303E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 197,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 31,
+            "invalid_ballots": 14,
+            "NISMA PËR KOSOVËN": 153,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1237,
+            "Longitude": 20.930305,
+            "ALEANCA KOSOVA E RE": 23,
+            "XHAVIT DRENORI": 58,
+            "FJALA": 10,
+            "Latitude": 42.606105,
+            "valid_ballots": 472
+        },
+        "0322E": {
+            "NAIM BAZAJ": 2,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 258,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 9,
+            "invalid_ballots": 14,
+            "NISMA PËR KOSOVËN": 60,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1277,
+            "Longitude": 20.900933,
+            "ALEANCA KOSOVA E RE": 18,
+            "XHAVIT DRENORI": 119,
+            "FJALA": 8,
+            "Latitude": 42.654746,
+            "valid_ballots": 474
+        },
+        "0311E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 434,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 35,
+            "invalid_ballots": 27,
+            "NISMA PËR KOSOVËN": 205,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 2694,
+            "Longitude": 20.94199,
+            "ALEANCA KOSOVA E RE": 81,
+            "XHAVIT DRENORI": 115,
+            "FJALA": 30,
+            "Latitude": 42.564274,
+            "valid_ballots": 901
+        },
+        "0301E": {
+            "NAIM BAZAJ": 4,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 679,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 47,
+            "invalid_ballots": 49,
+            "NISMA PËR KOSOVËN": 440,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 3996,
+            "Longitude": 20.891456,
+            "ALEANCA KOSOVA E RE": 65,
+            "XHAVIT DRENORI": 239,
+            "FJALA": 45,
+            "Latitude": 42.622749,
+            "valid_ballots": 1520
+        },
+        "0324E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 133,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 35,
+            "invalid_ballots": 15,
+            "NISMA PËR KOSOVËN": 55,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 608,
+            "Longitude": 20.938356,
+            "ALEANCA KOSOVA E RE": 9,
+            "XHAVIT DRENORI": 24,
+            "FJALA": 0,
+            "Latitude": 42.629764,
+            "valid_ballots": 257
+        },
+        "0313E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 364,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 83,
+            "invalid_ballots": 36,
+            "NISMA PËR KOSOVËN": 287,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 2755,
+            "Longitude": 20.836799,
+            "ALEANCA KOSOVA E RE": 143,
+            "XHAVIT DRENORI": 46,
+            "FJALA": 9,
+            "Latitude": 42.563536,
+            "valid_ballots": 833
+        },
+        "0301X": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 463,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 42,
+            "invalid_ballots": 32,
+            "NISMA PËR KOSOVËN": 317,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 3163,
+            "Longitude": 20.890116,
+            "ALEANCA KOSOVA E RE": 66,
+            "XHAVIT DRENORI": 182,
+            "FJALA": 48,
+            "Latitude": 42.631962,
+            "valid_ballots": 1119
+        },
+        "0307E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 209,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 22,
+            "invalid_ballots": 16,
+            "NISMA PËR KOSOVËN": 441,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1648,
+            "Longitude": 20.779448,
+            "ALEANCA KOSOVA E RE": 22,
+            "XHAVIT DRENORI": 15,
+            "FJALA": 5,
+            "Latitude": 42.629673,
+            "valid_ballots": 714
+        },
+        "0326E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 144,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 24,
+            "invalid_ballots": 20,
+            "NISMA PËR KOSOVËN": 37,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 753,
+            "Longitude": 20.850132,
+            "ALEANCA KOSOVA E RE": 2,
+            "XHAVIT DRENORI": 29,
+            "FJALA": 11,
+            "Latitude": 42.696617,
+            "valid_ballots": 248
+        },
+        "0315E": {
+            "NAIM BAZAJ": 1,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 351,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 24,
+            "invalid_ballots": 21,
+            "NISMA PËR KOSOVËN": 143,
+            "RRAHIM ELSHANI": 0,
+            "registered_voters": 1547,
+            "Longitude": 20.902878,
+            "ALEANCA KOSOVA E RE": 38,
+            "XHAVIT DRENORI": 74,
+            "FJALA": 19,
+            "Latitude": 42.614665,
+            "valid_ballots": 650
+        },
+        "0305E": {
+            "NAIM BAZAJ": 0,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 238,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 9,
+            "invalid_ballots": 16,
+            "NISMA PËR KOSOVËN": 53,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 1002,
+            "Longitude": 20.937564,
+            "ALEANCA KOSOVA E RE": 3,
+            "XHAVIT DRENORI": 45,
+            "FJALA": 3,
+            "Latitude": 42.681505,
+            "valid_ballots": 352
+        },
+        "0317E": {
+            "NAIM BAZAJ": 2,
+            "PARTIA DEMOKRATIKE E KOSOVËS": 383,
+            "LIDHJA DEMOKRATIKE E KOSOVËS": 50,
+            "invalid_ballots": 35,
+            "NISMA PËR KOSOVËN": 258,
+            "RRAHIM ELSHANI": 1,
+            "registered_voters": 3027,
+            "Longitude": 20.859388,
+            "ALEANCA KOSOVA E RE": 303,
+            "XHAVIT DRENORI": 85,
+            "FJALA": 9,
+            "Latitude": 42.576833,
+            "valid_ballots": 1091
+        }
+    };
+
+    var markerLayerGroup = undefined;
+
+    $(function () {
+        initPoliticalSubjectSelect();
+        var map = L.map('map').setView([42.630053, 20.871595], 11);
+        var selected_subject = $("#subject-select").val();
+        initMap(map, selected_subject);
+        initPoliticalSubjectSelectChange(map);
+    });
+
+    function initPoliticalSubjectSelectChange(map) {
+        $("#subject-select").change(function () {
+            var selected_subject = $(this).val();
+            initMap(map, selected_subject);
+        });
+    }
+
+    function initMap(map, selected_subject) {
+        buildHeatMapLayerData(selected_subject);
+        L.tileLayer('http://{s}.tiles.mapbox.com/v3/georges.jjc3k7b1/{z}/{x}/{y}.png', {
+            attribution: 'Data Source: <a href="http://opendatakosovo.org">Open Data Kosovo</a>',
+            maxZoom: 18
+        }).addTo(map);
+
+        if (markerLayerGroup != undefined) {
+            map.removeLayer(markerLayerGroup);
+        }
+
+        var heatmap_data = buildHeatMapLayerData(selected_subject);
+        markerLayerGroup = L.heatLayer(heatmap_data, {radius: 20}).addTo(map);
+        map.addLayer(markerLayerGroup);
+
+
+    }
+
+    function buildHeatMapLayerData(political_subject) {
+        var heatmap_data = [];
+        for (var item in data) {
+            var heatmap_row = [data[item]["Latitude"], data[item]["Longitude"], data[item][political_subject]];
+            heatmap_data.push(heatmap_row);
+        }
+        return heatmap_data;
+    }
+
+    function initPoliticalSubjectSelect() {
+        for (var i = 0; i < political_parties.length; i++) {
+            var option_html = "<option value='" + political_parties[i] + "'>" + toTitleCase(political_parties[i]) + "</option>";
+            $("#subject-select").append(option_html);
+        }
+    }
+
+    function toTitleCase(str) {
+        return str.replace(/\w\S*/g, function (txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        });
+    }
+</script>
